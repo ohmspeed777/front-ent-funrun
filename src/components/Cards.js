@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = () => {
+const Card = ({category_name, length, name}) => {
   return (
     <div className="card bordered">
       <figure>
@@ -8,12 +8,12 @@ const Card = () => {
       </figure>
       <div className="card-body">
         <h2 className="card-title">
-          ชื่อ จิรายุส สหพรอุดมการ
+          {name}
           <div className="badge mx-2 badge-secondary">NEW</div>
         </h2>
         <ul>
-          <li>ประเภท funrun</li>
-          <li>ระยะทาง 15.6 Km</li>
+          <li>type: {category_name}</li>
+          <li>range: {length}</li>
         </ul>
       </div>
     </div>

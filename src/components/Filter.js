@@ -1,6 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchRegisByCategoryName, fetchRegis } from '../actions';
 
-const Filter = () => {
+const Filter = ({ categories, fetchRegisByCategoryName, fetchRegis }) => {
+  const handleClick = (name) => {
+    fetchRegisByCategoryName(name);
+  };
+
+  const filterItem = categories.map((category) => {
+    return (
+      <li
+        key={category.category_id}
+        onClick={() => handleClick(category.category_name)}
+      >
+        <Link to={`/`}>{category.category_name}</Link>
+      </li>
+    );
+  });
+
   return (
     <div className="mt-4 artboard artboard-demo bg-base-200 container mx-auto">
       <ul
@@ -14,42 +32,13 @@ const Filter = () => {
     rounded-box
   "
       >
-        <li>
-          <a> With link </a>
+        <li onClick={fetchRegis}>
+          <Link to="/">All</Link>
         </li>
-        <li className="bordered">
-          <a> Bordered </a>
-        </li>
-        <li>
-          <span> With a span </span>
-        </li>
-        <li>
-          <a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block w-6 h-6 mr-2 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-              />
-            </svg>
-            With icon
-          </a>
-        </li>
+        {filterItem}
       </ul>
     </div>
   );
 };
 
-export default Filter;
+export default connect(null, { fetchRegisByCategoryName, fetchRegis })(Filter);

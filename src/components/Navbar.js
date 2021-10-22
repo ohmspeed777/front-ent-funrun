@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="navbar shadow-lg bg-neutral text-neutral-content sticky top-0">
+    <nav className="navbar shadow-lg bg-neutral text-neutral-content sticky top-0 z-40">
       <div className="flex-1 hidden px-2 mx-2 lg:flex">
         <span className="text-lg font-bold"> daisyUI </span>
       </div>
