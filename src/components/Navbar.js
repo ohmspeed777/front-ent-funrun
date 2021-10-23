@@ -12,13 +12,16 @@ const Navbar = ({ isLogin }) => {
       );
     }
 
-    return <Link to="/regisFunRun">Join fun run</Link>
+    return <Link to="/regisFunRun">Join fun run</Link>;
   };
 
   return (
     <nav className="navbar shadow-lg bg-neutral text-neutral-content sticky top-0 z-40">
       <div className="flex-1 hidden px-2 mx-2 lg:flex">
-        <span className="text-lg font-bold"> daisyUI </span>
+        <span className="text-lg font-bold">
+          {' '}
+          <Link to="/">Fun Run</Link>{' '}
+        </span>
       </div>
       <div className="flex-1 lg:flex-none">
         <div className="form-control">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { fetchCategories, regisFunRun } from '../actions';
+import { fetchCategories, regisFunRun, fetchRegis } from '../actions';
 import history from '../history';
 
 class RegisFunRun extends React.Component {
@@ -14,7 +14,10 @@ class RegisFunRun extends React.Component {
       return (
         <div className="form-control" key={category.category_id}>
           <label className="cursor-pointer label">
-            <span className="label-text">{category.category_name}</span>
+            <span className="label-text">
+              {category.category_name} {category.length}
+              {category.price} Bath
+            </span>
             <input
               type="radio"
               name={input.name}
@@ -43,6 +46,8 @@ class RegisFunRun extends React.Component {
       category_id: formValues.category_name,
       member_id: this.props.userId,
     });
+    history.push('/');
+    this.props.fetchRegis();
   };
 
   render() {
@@ -62,8 +67,8 @@ class RegisFunRun extends React.Component {
             onSubmit={this.props.handleSubmit(this.onSubmit)}
           >
             <div className="card-body">
-              <h2 className="text-primary-300 text-center text-primary">
-                Registration
+              <h2 className="text-secondary text-center text-primary pb-4">
+                Funrun Form
               </h2>
               <Field name="category_name" component={this.renderInput} />
               <div className="form-control mt-6">
@@ -81,20 +86,8 @@ class RegisFunRun extends React.Component {
   }
 }
 
-const validate = (values) => {
-  const errors = {};
-  if (!values.email) {
-    errors.email = 'Please provide your email';
-  }
-  if (!values.password) {
-    errors.password = 'Please provide your password';
-  }
-  return errors;
-};
-
 const formWrapped = reduxForm({
   form: 'RegisForm',
-  validate,
 })(RegisFunRun);
 
 const mapStateToProps = (state) => {
@@ -104,6 +97,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchCategories, regisFunRun })(
-  formWrapped
-);
+export default connect(mapStateToProps, {
+  fetchCategories,
+  regisFunRun,
+  fetchRegis,
+})(formWrapped);

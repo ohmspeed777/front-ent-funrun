@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchRegisByCategoryName, fetchRegis } from '../actions';
 
 const Filter = ({ categories, fetchRegisByCategoryName, fetchRegis }) => {
+
   const handleClick = (name) => {
     fetchRegisByCategoryName(name);
   };
