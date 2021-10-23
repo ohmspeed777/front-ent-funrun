@@ -1,7 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+const Navbar = ({ isLogin }) => {
+  const NavItem = () => {
+    if (!isLogin) {
+      return (
+        <React.Fragment>
+          <Link to="/register">register |</Link>
+          <Link to="/login">&nbsp;login</Link>
+        </React.Fragment>
+      );
+    }
 
-const Navbar = () => {
+    return <Link to="/regisFunRun">Join fun run</Link>
+  };
+
   return (
     <nav className="navbar shadow-lg bg-neutral text-neutral-content sticky top-0 z-40">
       <div className="flex-1 hidden px-2 mx-2 lg:flex">
@@ -33,12 +46,13 @@ const Navbar = () => {
           </svg>
         </button>
       </div>
-      <div className="flex-none px-4">
-        <Link to="/register">register |</Link>
-        <Link to="/login">&nbsp;login</Link>
-      </div>
+      <div className="flex-none px-4">{NavItem()}</div>
     </nav>
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  return { isLogin: state.auth.isSignedIn };
+};
+
+export default connect(mapStateToProps, {})(Navbar);

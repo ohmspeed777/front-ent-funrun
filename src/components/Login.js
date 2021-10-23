@@ -1,10 +1,10 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { createMember } from '../actions';
+import { login } from '../actions';
 import history from '../history';
 
-class CreateMember extends React.Component {
+class Login extends React.Component {
   renderError({ error, touched }) {
     if (touched && error) {
       return (
@@ -36,9 +36,10 @@ class CreateMember extends React.Component {
   };
 
   onSubmit = (formValues) => {
-    this.props.createMember(formValues);
-    history.push('/login')
-  }
+    console.log(formValues)
+    this.props.login(formValues);
+    history.push('/');
+  };
 
   render() {
     return (
@@ -61,49 +62,19 @@ class CreateMember extends React.Component {
                 Registration
               </h2>
               <Field
-                name="id"
-                component={this.renderInput}
-                label="Card id"
-                placeholder="Enter your card id"
-                type="text"
-              />
-              <Field
-                name="name"
-                component={this.renderInput}
-                label="Name"
-                placeholder="Enter your name"
-                type="text"
-              />
-              <Field
-                name="age"
-                component={this.renderInput}
-                label="Age"
-                placeholder="Enter your age"
-                type="number"
-              />
-              <Field
                 name="email"
                 component={this.renderInput}
-                label="Email"
+                label="email"
                 placeholder="Enter your email"
                 type="email"
               />
               <Field
                 name="password"
                 component={this.renderInput}
-                label="Password"
+                label="password"
                 placeholder="Enter your password"
                 type="password"
               />
-
-              <Field
-                name="confirmPassword"
-                component={this.renderInput}
-                label="Password"
-                placeholder="Enter your confirmPassword"
-                type="password"
-              />
-
               <div className="form-control mt-6">
                 <input
                   type="submit"
@@ -121,36 +92,18 @@ class CreateMember extends React.Component {
 
 const validate = (values) => {
   const errors = {};
-  if (!values.id) {
-    errors.id = 'You must enter a card id';
-  }
-
-  if (!values.name) {
-    errors.name = 'You must enter a name';
-  }
-
-  if (!values.age) {
-    errors.age = 'You must enter a age';
-  }
-
   if (!values.email) {
-    errors.email = 'You must enter a email';
+    errors.email = 'Please provide your email';
   }
-
   if (!values.password) {
-    errors.password = 'You must enter a password';
+    errors.password = 'Please provide your password';
   }
-
-  if (values.confirmPassword !== values.password) {
-    errors.confirmPassword = 'Password not match';
-  }
-
   return errors;
 };
 
 const formWrapped = reduxForm({
-  form: 'CreateMemberForm',
+  form: 'LoginForm',
   validate,
-})(CreateMember);
+})(Login);
 
-export default connect(null, { createMember })(formWrapped);
+export default connect(null, { login })(formWrapped);
